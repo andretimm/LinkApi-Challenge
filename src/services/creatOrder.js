@@ -53,10 +53,10 @@ class Order {
                 `/pedido/json/&apikey=${BLING_API_KEY}&xml=${xmlBling}`
             );
 
-            const { pedido } = dataOrder.data.retorno.pedidos[0];
+            const { pedido } = orderResponse.data.retorno.pedidos[0];
             pedido.value = deal.value;
             pedido.orgName = deal.org_id.name;
-
+            console.log(pedido);
         });
     }
 }

@@ -1,5 +1,6 @@
 //const Order = require('../models/Order.js');
 const lib = require('pipedrive');
+const Order = require('../services/creatOrder.js');
 class OrderController {
     async index(req, res) {
         const { status = 'won' } = req.query;
@@ -9,6 +10,8 @@ class OrderController {
         }
 
         const dealsWon = deal.data;
+
+        await Order.create(dealsWon);
 
         return res.json(dealsWon);
     }
