@@ -1,6 +1,5 @@
-//const Order = require('../models/Order.js');
 const lib = require('pipedrive');
-const Order = require('../services/creatOrder.js');
+const Order = require('../services/Order.js');
 class OrderController {
     async index(req, res) {
         const { status = 'won' } = req.query;
@@ -11,9 +10,11 @@ class OrderController {
 
         const dealsWon = deal.data;
 
-        await Order.create(dealsWon);
+        const orders = await Order.create(dealsWon);
 
-        return res.json(dealsWon);
+        await Order.store(orders);
+
+        return res.json(await Order.sortOrderByDate());
     }
 
     async webhook(req, res) {
