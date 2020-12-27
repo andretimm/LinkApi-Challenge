@@ -1,4 +1,7 @@
+require('dotenv').config();
 const mongoose = require("mongoose");
+const config = require("./config.js");
+const { DB_USERNAME, DB_PASSWORD, DB_DATABASE } = config;
 
 class Database {
     constructor() {
@@ -7,7 +10,7 @@ class Database {
 
     connect() {
         mongoose.connect(
-            'mongodb+srv://andre:linkapi@cluster0.ewhmp.mongodb.net/linkapi?retryWrites=true&w=majority',
+            `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.ewhmp.mongodb.net/${DB_DATABASE}?retryWrites=true&w=majority`,
             {
                 useNewUrlParser: true,
                 useFindAndModify: true,
