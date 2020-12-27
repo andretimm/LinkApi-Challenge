@@ -1,20 +1,23 @@
 const lib = require('pipedrive');
 const Order = require('../services/Order.js');
+
 class OrderController {
     async index(req, res) {
-        const { status = 'won' } = req.query;
-        let deal = await lib.DealsController.getAllDeals({ status });
-        if (!deal) {
-            return res.status(400).json({ message: 'Envie um status válido' });
+        try {
+            let deal = await lib.DealsController.getAllDeals({ status = 'won' });
+            if (!deal) {
+                return res.status(400).json({ message: 'Envie um status válido' });
+            }
+
+            const dealsWon = deal.data;
+            const orders = await Order.create(dealsWon);
+
+            await Order.store(orders);
+
+            return res.json(await Order.sortOrderByDate());
+        } catch (err) {
+            throw new Error(err.message);
         }
-
-        const dealsWon = deal.data;
-
-        const orders = await Order.create(dealsWon);
-
-        await Order.store(orders);
-
-        return res.json(await Order.sortOrderByDate());
     }
 
     async webhook(req, res) {
