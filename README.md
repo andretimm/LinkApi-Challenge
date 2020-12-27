@@ -2,7 +2,8 @@
 
 ## Pré-requisitos:
 
-Node.js e yarn instalado
+- Node.js
+- Yarn
 
 1. Clone o projeto na sua máquina
 
@@ -37,4 +38,4 @@ http://localhost:4001/
 Ao acessar o endpoint `/`, ja ira fazer uma buscar pelas oportunidades ganhas no `pipedrive` e inserir as mesmas no `Bling`.
 
 ## TODO
-- [] Webhook no pipedrive para incluir automaticamente no Bling
+- [ ] Webhook no pipedrive para incluir automaticamente no Bling
